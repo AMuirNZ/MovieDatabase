@@ -77,7 +77,8 @@ namespace MovieDatabase
 
         public DataTable FillDGMoviesWithMoviesClick(string Moviesvalue)
         {
-            string SQL = "select * from CustomerMovieRentals where MovieIDFK = '" + Moviesvalue + "' ";
+            string SQL = "select * from CustomerMovieRentals where MovieIDFK = '" + Moviesvalue + "' ";
+
             da = new SqlDataAdapter(SQL, Connection);
             //connect in to the DB and get the SQL
             DataTable dt = new DataTable();

@@ -45,6 +45,8 @@ namespace MovieDatabase
             }
         }
 
+
+
         private void DisplayDataGridViewCustomers()
         {
             //clear out the old data
@@ -64,7 +66,7 @@ namespace MovieDatabase
         private void DisplayDataGridViewRentals()
         {
             //clear out the old data
-            DGVCustomers.DataSource = null;
+            DGVMoviesRented.DataSource = null;
             try
             {
                 DGVMoviesRented.DataSource = myDatabase.FillDGVRentalsWithRentals();
