@@ -31,7 +31,7 @@ namespace MovieDatabase
         {
             //create a datatable as we only have one table, the Owner
             DataTable dt = new DataTable();
-            using (da = new SqlDataAdapter("select * from Movies ", Connection))
+            using (da = new SqlDataAdapter("select MovieID, Rating, Title, Year, Plot, Genre from Movies ", Connection))
             {
                 //connect in to the DB and get the SQL
                 Connection.Open();
@@ -77,7 +77,7 @@ namespace MovieDatabase
 
         public DataTable FillDGMoviesWithMoviesClick(string Moviesvalue)
         {
-            string SQL = "select * from CustomerMovieRentals where MovieIDFK = '" + Moviesvalue + "' ";
+            string SQL = "select Date from CustomerMovieRentals where MovieIDFK = '" + Moviesvalue + "' ";
 
             da = new SqlDataAdapter(SQL, Connection);
             //connect in to the DB and get the SQL
