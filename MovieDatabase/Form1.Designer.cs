@@ -31,6 +31,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.DGVMovies = new System.Windows.Forms.DataGridView();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.DGVCustomers = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -52,11 +53,21 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtMoviePlot2 = new System.Windows.Forms.TextBox();
+            this.txtDateTime = new System.Windows.Forms.TextBox();
             this.btnAddMovie = new System.Windows.Forms.Button();
             this.txtMovieCopies = new System.Windows.Forms.TextBox();
             this.btnUpdateMovie = new System.Windows.Forms.Button();
             this.btnDeleteMovie = new System.Windows.Forms.Button();
+            this.btnAddCustomer = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnDeleteCustomer = new System.Windows.Forms.Button();
+            this.btnUpdateCustomer = new System.Windows.Forms.Button();
+            this.btnCheckOut = new System.Windows.Forms.Button();
+            this.btnReturn = new System.Windows.Forms.Button();
+            this.txtRentalID = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVMovies)).BeginInit();
@@ -80,6 +91,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.DGVMovies);
+            this.tabPage1.Controls.Add(this.label8);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -97,6 +109,14 @@
             this.DGVMovies.Size = new System.Drawing.Size(420, 205);
             this.DGVMovies.TabIndex = 1;
             this.DGVMovies.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVMovies_CellContentClick);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(344, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(0, 13);
+            this.label8.TabIndex = 26;
             // 
             // tabPage2
             // 
@@ -138,6 +158,7 @@
             this.DGVMoviesRented.Name = "DGVMoviesRented";
             this.DGVMoviesRented.Size = new System.Drawing.Size(420, 205);
             this.DGVMoviesRented.TabIndex = 0;
+            this.DGVMoviesRented.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVMoviesRented_CellContentClick);
             // 
             // txtCustFirstName
             // 
@@ -269,12 +290,13 @@
             this.label6.TabIndex = 18;
             this.label6.Text = "Rating";
             // 
-            // txtMoviePlot2
+            // txtDateTime
             // 
-            this.txtMoviePlot2.Location = new System.Drawing.Point(505, 106);
-            this.txtMoviePlot2.Name = "txtMoviePlot2";
-            this.txtMoviePlot2.Size = new System.Drawing.Size(100, 20);
-            this.txtMoviePlot2.TabIndex = 19;
+            this.txtDateTime.Location = new System.Drawing.Point(505, 106);
+            this.txtDateTime.Name = "txtDateTime";
+            this.txtDateTime.Size = new System.Drawing.Size(100, 20);
+            this.txtDateTime.TabIndex = 19;
+            this.txtDateTime.Visible = false;
             // 
             // btnAddMovie
             // 
@@ -295,7 +317,7 @@
             // 
             // btnUpdateMovie
             // 
-            this.btnUpdateMovie.Location = new System.Drawing.Point(477, 258);
+            this.btnUpdateMovie.Location = new System.Drawing.Point(529, 258);
             this.btnUpdateMovie.Name = "btnUpdateMovie";
             this.btnUpdateMovie.Size = new System.Drawing.Size(106, 23);
             this.btnUpdateMovie.TabIndex = 22;
@@ -313,16 +335,119 @@
             this.btnDeleteMovie.UseVisualStyleBackColor = true;
             this.btnDeleteMovie.Click += new System.EventHandler(this.btnDeleteMovie_Click);
             // 
+            // btnAddCustomer
+            // 
+            this.btnAddCustomer.Location = new System.Drawing.Point(318, 262);
+            this.btnAddCustomer.Name = "btnAddCustomer";
+            this.btnAddCustomer.Size = new System.Drawing.Size(75, 23);
+            this.btnAddCustomer.TabIndex = 24;
+            this.btnAddCustomer.Text = "Add Customer";
+            this.btnAddCustomer.UseVisualStyleBackColor = true;
+            this.btnAddCustomer.Click += new System.EventHandler(this.btnAddCustomer_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(35, 288);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "First Name";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(382, 285);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(38, 13);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Phone";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(268, 288);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Address";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(165, 288);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(58, 13);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Last Name";
+            // 
+            // btnDeleteCustomer
+            // 
+            this.btnDeleteCustomer.Location = new System.Drawing.Point(399, 259);
+            this.btnDeleteCustomer.Name = "btnDeleteCustomer";
+            this.btnDeleteCustomer.Size = new System.Drawing.Size(86, 23);
+            this.btnDeleteCustomer.TabIndex = 30;
+            this.btnDeleteCustomer.Text = "Delete Customer";
+            this.btnDeleteCustomer.UseVisualStyleBackColor = true;
+            this.btnDeleteCustomer.Click += new System.EventHandler(this.btnDeleteCustomer_Click);
+            // 
+            // btnUpdateCustomer
+            // 
+            this.btnUpdateCustomer.Location = new System.Drawing.Point(426, 225);
+            this.btnUpdateCustomer.Name = "btnUpdateCustomer";
+            this.btnUpdateCustomer.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateCustomer.TabIndex = 31;
+            this.btnUpdateCustomer.Text = "Update Customer";
+            this.btnUpdateCustomer.UseVisualStyleBackColor = true;
+            this.btnUpdateCustomer.Click += new System.EventHandler(this.btnUpdateCustomer_Click);
+            // 
+            // btnCheckOut
+            // 
+            this.btnCheckOut.Location = new System.Drawing.Point(707, 44);
+            this.btnCheckOut.Name = "btnCheckOut";
+            this.btnCheckOut.Size = new System.Drawing.Size(75, 23);
+            this.btnCheckOut.TabIndex = 32;
+            this.btnCheckOut.Text = "Check Out";
+            this.btnCheckOut.UseVisualStyleBackColor = true;
+            this.btnCheckOut.Click += new System.EventHandler(this.btnCheckOut_Click);
+            // 
+            // btnReturn
+            // 
+            this.btnReturn.Location = new System.Drawing.Point(707, 93);
+            this.btnReturn.Name = "btnReturn";
+            this.btnReturn.Size = new System.Drawing.Size(75, 23);
+            this.btnReturn.TabIndex = 33;
+            this.btnReturn.Text = "Return";
+            this.btnReturn.UseVisualStyleBackColor = true;
+            this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
+            // 
+            // txtRentalID
+            // 
+            this.txtRentalID.Location = new System.Drawing.Point(682, 161);
+            this.txtRentalID.Name = "txtRentalID";
+            this.txtRentalID.Size = new System.Drawing.Size(100, 20);
+            this.txtRentalID.TabIndex = 34;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(658, 408);
+            this.ClientSize = new System.Drawing.Size(857, 444);
+            this.Controls.Add(this.txtRentalID);
+            this.Controls.Add(this.btnReturn);
+            this.Controls.Add(this.btnCheckOut);
+            this.Controls.Add(this.btnUpdateCustomer);
+            this.Controls.Add(this.btnDeleteCustomer);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.btnAddCustomer);
             this.Controls.Add(this.btnDeleteMovie);
             this.Controls.Add(this.btnUpdateMovie);
             this.Controls.Add(this.txtMovieCopies);
             this.Controls.Add(this.btnAddMovie);
-            this.Controls.Add(this.txtMoviePlot2);
+            this.Controls.Add(this.txtDateTime);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -345,6 +470,7 @@
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVMovies)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVCustomers)).EndInit();
@@ -380,11 +506,22 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtMoviePlot2;
+        private System.Windows.Forms.TextBox txtDateTime;
         private System.Windows.Forms.Button btnAddMovie;
         private System.Windows.Forms.TextBox txtMovieCopies;
         private System.Windows.Forms.Button btnUpdateMovie;
         private System.Windows.Forms.Button btnDeleteMovie;
+        private System.Windows.Forms.Button btnAddCustomer;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnDeleteCustomer;
+        private System.Windows.Forms.Button btnUpdateCustomer;
+        private System.Windows.Forms.Button btnCheckOut;
+        private System.Windows.Forms.Button btnReturn;
+        private System.Windows.Forms.TextBox txtRentalID;
     }
 }
 

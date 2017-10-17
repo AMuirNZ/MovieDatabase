@@ -63,7 +63,7 @@ namespace MovieDatabase
         {
             //create a datatable as we only have one table, the Owner
             DataTable dt = new DataTable();
-            using (da = new SqlDataAdapter("select * from RentedMovies ", Connection))
+            using (da = new SqlDataAdapter("SELECT RentedMovies.RMID, Customer.FirstName, Customer.LastName, RentedMovies.DateRented, RentedMovies.DateReturned, Movies.Title from RentedMovies INNER JOIN Movies ON RentedMovies.MovieIDFK = Movies.MovieID INNER JOIN Customer ON RentedMovies.CustIDFK = Customer.CustID ", Connection))
             {
                 //connect in to the DB and get the SQL
                 Connection.Open();
