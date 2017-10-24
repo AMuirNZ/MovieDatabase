@@ -35,8 +35,9 @@ namespace MovieDatabase
         private void DisplayDataGridViewMovies()
         {
 
+            txtDateTime2.Text = (DateTime.Now.Date.Year).ToString();
             txtDateTime.Text = (DateTime.Now).ToString();
-            //clear out the old data
+        
             DGVMovies.DataSource = null;
             try
             {
@@ -108,6 +109,8 @@ namespace MovieDatabase
 
         private void DGVMovies_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            
+            
             var today = DateTime.Now;
             try
             {
@@ -122,63 +125,30 @@ namespace MovieDatabase
                 txtMovieYear.Text = DGVMovies.Rows[e.RowIndex].Cells[3].Value.ToString();
                 txtMoviePlot.Text = DGVMovies.Rows[e.RowIndex].Cells[4].Value.ToString();
                 txtMovieGenre.Text = DGVMovies.Rows[e.RowIndex].Cells[5].Value.ToString();
+
+                
                 
             }
             catch
             {
             }
+            int thisYear = Convert.ToInt16(txtDateTime2.Text);
+            int Year = Convert.ToInt16(txtMovieYear.Text);
+
+            int fee = myDatabase.FeeCalculation(Year, thisYear);
+
+
+
+            txtMovieFee.Text = "$" + fee.ToString() + ".00";
 
         }
 
         private void btnAddMovie_Click(object sender, EventArgs e)
         {
-            // this puts the parameters into the code so that the data in the text boxes is added to the database
 
-            string NewEntry = "INSERT INTO Movies ( Rating, Title, Year, Plot, Genre) VALUES ( @Rating, @Title, @Year, @Plot, @Genre)";
-
-
-
-            SqlConnection Con = new SqlConnection();
-
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-
-            Con.ConnectionString = connectionString;
-
-            using (SqlCommand newdata = new SqlCommand(NewEntry, Con))
-
-            {
-
-
-
-                newdata.Parameters.AddWithValue("@Rating", txtMovieRating.Text);
-
-                newdata.Parameters.AddWithValue("@Title", txtMovieTitle.Text);
-
-                newdata.Parameters.AddWithValue("@Year", txtMovieYear.Text);
-
-
-
-
-                newdata.Parameters.AddWithValue("@Plot", txtMoviePlot.Text);
-
-                newdata.Parameters.AddWithValue("@Genre", txtMovieGenre.Text);
-
-
-
-
-
-                Con.Open(); //open a connection to the database
-
-                //its a NONQuery as it doesn't return any data its only going up to the server
-
-                newdata.ExecuteNonQuery();  //Run the Query
-
-                //a happy message box
-
-                MessageBox.Show("Data has been Inserted  !! ");
-                Con.Close();
-
-            }
+            myDatabase.AddMovie(txtMovieRating.Text, txtMovieTitle.Text, txtMovieYear.Text, txtMoviePlot.Text,
+            txtMovieGenre.Text);
+            
 
             //Run the LoadDatabase method we made earler to see the new data.
 
@@ -187,203 +157,53 @@ namespace MovieDatabase
 
         private void btnUpdateMovie_Click(object sender, EventArgs e)
         {
-            //this updates existing data in the database where the ID of the data equals the ID in the text box
 
-            string updatestatement = "Update Movies set Rating=@Rating, Title=@Title, Year=@Year, Plot=@Plot, Genre=@Genre where MovieID = @MovieID";
+            myDatabase.UpdateMovie(txtMovieID.Text, txtMovieRating.Text, txtMovieTitle.Text,
+                txtMovieYear.Text, txtMoviePlot.Text, txtMovieGenre.Text);
 
-            // Rating, Title, Year, Plot, Genre
-            // Rating, Title, Year, Plot, Genre
-            // Rating, Title, Year, Plot, Genre
-
-
-            SqlConnection Con = new SqlConnection();
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-            Con.ConnectionString = connectionString;
-
-            SqlCommand update = new SqlCommand(updatestatement, Con);
-            // create the parameters and pass the data from the textboxes 
-            update.Parameters.AddWithValue("@MovieID", txtMovieID.Text);
-            update.Parameters.AddWithValue("@Rating", txtMovieRating.Text);
-            update.Parameters.AddWithValue("@Title", txtMovieTitle.Text);
-            update.Parameters.AddWithValue("@Year", txtMovieYear.Text);
-            update.Parameters.AddWithValue("@Plot", txtMoviePlot.Text);
-            update.Parameters.AddWithValue("@Genre", txtMovieGenre.Text);
-
-
-            Con.Open();
-            //it's NonQuery as data is only going up
-
-            update.ExecuteNonQuery();
-            Con.Close();
+            
             DisplayDataGridViewMovies();
         }
 
         private void btnDeleteMovie_Click(object sender, EventArgs e)
         {
-            SqlConnection Con = new SqlConnection();
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-            Con.ConnectionString = connectionString;
+            myDatabase.deleteMovie(txtMovieID.Text);
 
-            string DeleteCommand = "Delete Movies where MovieID = @MovieID";
-
-            SqlCommand DeleteData = new SqlCommand(DeleteCommand, Con);
-            DeleteData.Parameters.AddWithValue("@MovieID", txtMovieID.Text);
-
-            Con.Open();
-            DeleteData.ExecuteNonQuery();
-            Con.Close();
+            
             DisplayDataGridViewMovies();
         }
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            // this puts the parameters into the code so that the data in the text boxes is added to the database
-
-            string NewEntry = "INSERT INTO Customer (FirstName, LastName, Address, Phone) VALUES ( @FirstName, @LastName, @Address, @Phone)";
-
-
-
-            SqlConnection Con = new SqlConnection();
-
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-
-            Con.ConnectionString = connectionString;
-
-            using (SqlCommand newdata = new SqlCommand(NewEntry, Con))
-
-            {
-
-
-
-                newdata.Parameters.AddWithValue("@FirstName", txtCustFirstName.Text);
-
-                newdata.Parameters.AddWithValue("@LastName", txtCustLastName.Text);
-
-                newdata.Parameters.AddWithValue("@Address", txtCustAddress.Text);
-
-
-
-
-                newdata.Parameters.AddWithValue("@Phone", txtCustPhone.Text);
-
-               
-
-
-
-
-
-                Con.Open(); //open a connection to the database
-
-                //its a NONQuery as it doesn't return any data its only going up to the server
-
-                newdata.ExecuteNonQuery();  //Run the Query
-
-                //a happy message box
-
-                MessageBox.Show("Data has been Inserted  !! ");
-                Con.Close();
-            }
+            myDatabase.AddCustomer(txtCustFirstName.Text, txtCustLastName.Text, txtCustAddress.Text, txtCustPhone.Text);
 
             DisplayDataGridViewCustomers();
         }
 
         private void btnDeleteCustomer_Click(object sender, EventArgs e)
         {
-            SqlConnection Con = new SqlConnection();
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-            Con.ConnectionString = connectionString;
+            myDatabase.DeleteCustomer(txtCustID.Text);
 
-            string DeleteCommand = "Delete Customer where CustID = @CustID";
 
-            SqlCommand DeleteData = new SqlCommand(DeleteCommand, Con);
-            DeleteData.Parameters.AddWithValue("@CustID", txtCustID.Text);
-
-            Con.Open();
-            DeleteData.ExecuteNonQuery();
-            Con.Close();
+           
             DisplayDataGridViewCustomers();
         }
 
         private void btnUpdateCustomer_Click(object sender, EventArgs e)
         {
-            //this updates existing data in the database where the ID of the data equals the ID in the text box
-
-            string updatestatement = "Update Customer set FirstName=@FirstName, LastName=@LastName, Address=@Address, Phone=@Phone where CustID = @CustID";
-
+            myDatabase.UpdateCustomer(txtCustID.Text, txtCustFirstName.Text, txtCustLastName.Text, txtCustAddress.Text, txtCustPhone.Text);
             
-
-            SqlConnection Con = new SqlConnection();
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-            Con.ConnectionString = connectionString;
-
-            SqlCommand update = new SqlCommand(updatestatement, Con);
-            // create the parameters and pass the data from the textboxes 
-            update.Parameters.AddWithValue("@CustID", txtCustID.Text);
-            update.Parameters.AddWithValue("@FirstName", txtCustFirstName.Text);
-            update.Parameters.AddWithValue("@LastName", txtCustLastName.Text);
-            update.Parameters.AddWithValue("@Address", txtCustAddress.Text);
-            update.Parameters.AddWithValue("@Phone", txtCustPhone.Text);
-
-
-
-            Con.Open();
-            //it's NonQuery as data is only going up
-
-            update.ExecuteNonQuery();
-            Con.Close();
+            
             DisplayDataGridViewCustomers();
         }
 
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
             DateTime Date = Convert.ToDateTime(txtDateTime.Text);
+            myDatabase.CheckOut(txtMovieID.Text, txtCustID.Text, Date);
+            
 
-            // this puts the parameters into the code so that the data in the text boxes is added to the database
-
-            string NewEntry = "INSERT INTO RentedMovies (MovieIDFK, CustIDFK, DateRented) VALUES ( @MovieIDFK, @CustIDFK, @DateRented)";
-
-
-
-            SqlConnection Con = new SqlConnection();
-
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-
-            Con.ConnectionString = connectionString;
-
-            using (SqlCommand newdata = new SqlCommand(NewEntry, Con))
-//
-            {
-
-
-
-                newdata.Parameters.AddWithValue("@MovieIDFK", txtMovieID.Text);
-
-                newdata.Parameters.AddWithValue("@CustIDFK", txtCustID.Text);
-
-                newdata.Parameters.AddWithValue("@DateRented", Date);
-
-
-
-                
-
-
-
-
-
-
-                Con.Open(); //open a connection to the database
-
-                //its a NONQuery as it doesn't return any data its only going up to the server
-
-                newdata.ExecuteNonQuery();  //Run the Query
-
-                //a happy message box
-
-                MessageBox.Show("Data has been Inserted  !! ");
-                Con.Close();
-            }
-
-            DisplayDataGridViewRentals();
+           DisplayDataGridViewRentals();
         }
 
         private void DGVMoviesRented_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -407,30 +227,33 @@ namespace MovieDatabase
         private void btnReturn_Click(object sender, EventArgs e)
         {
             DateTime Date = Convert.ToDateTime(txtDateTime.Text);
-            //this updates existing data in the database where the ID of the data equals the ID in the ext box
-
-            string updatestatement = "Update RentedMovies set DateReturned=@DateReturned where RMID=@RMID";
-
-
-
-            SqlConnection Con = new SqlConnection();
-            string connectionString = @"Data Source = LAPTOP-TKI3D179;Initial Catalog=MoviesDSED02;Integrated Security=True";
-            Con.ConnectionString = connectionString;
-
-            SqlCommand update = new SqlCommand(updatestatement, Con);
-            // create the parameters and pass the data from the textboxes 
-            update.Parameters.AddWithValue("@RMID", txtRentalID.Text);
-            update.Parameters.AddWithValue("@DateReturned", Date);
+            myDatabase.returnMovie(txtRentalID.Text, Date);
+            
             
 
 
-
-            Con.Open();
-            //it's NonQuery as data is only going up
-
-            update.ExecuteNonQuery();
-            Con.Close();
+            
             DisplayDataGridViewRentals();
+        }
+
+        private void rdoShowMoviesOut_CheckedChanged(object sender, EventArgs e)
+        {
+            DGVMovies.DataSource = null;
+            try
+            {
+                DGVMovies.DataSource = myDatabase.FillDGVMoviesWithMoviesOut();
+                //pass the datatable data to the DataGridView
+                DGVMovies.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void rdoAllMovies_CheckedChanged(object sender, EventArgs e)
+        {
+            DisplayDataGridViewMovies();
         }
     }
     }
