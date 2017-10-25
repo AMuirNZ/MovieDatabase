@@ -146,9 +146,10 @@ namespace MovieDatabase
         private void btnAddMovie_Click(object sender, EventArgs e)
         {
 
-            myDatabase.AddMovie(txtMovieRating.Text, txtMovieTitle.Text, txtMovieYear.Text, txtMoviePlot.Text,
+            string cat = myDatabase.AddMovie(txtMovieRating.Text, txtMovieTitle.Text, txtMovieYear.Text, txtMoviePlot.Text,
             txtMovieGenre.Text);
-            
+
+            MessageBox.Show(cat);
 
             //Run the LoadDatabase method we made earler to see the new data.
 

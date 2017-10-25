@@ -464,6 +464,7 @@
             // rdoAllMovies
             // 
             this.rdoAllMovies.AutoSize = true;
+            this.rdoAllMovies.Checked = true;
             this.rdoAllMovies.Location = new System.Drawing.Point(696, 235);
             this.rdoAllMovies.Name = "rdoAllMovies";
             this.rdoAllMovies.Size = new System.Drawing.Size(102, 17);

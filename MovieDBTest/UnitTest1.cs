@@ -17,5 +17,20 @@ namespace MovieDBTest
             Assert.AreEqual(2, Actual);
 
         }
+
+        [TestMethod]
+        public void TestMethod2()
+        {
+            Database myDatabase = new Database();
+
+            string Actual = myDatabase.AddMovie("PG", "Cats", "2005", "Cats are good", "Cats" );
+
+            Assert.AreEqual("Movie Entered", Actual);
+
+        }
+
+       
+
+
     }
 }

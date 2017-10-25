@@ -151,7 +151,7 @@ namespace MovieDatabase
             }
         }
 
-        public void AddMovie(string rating, string title, string year, string plot, string genre)
+        public string AddMovie(string rating, string title, string year, string plot, string genre)
         {
             // this puts the parameters into the code so that the data in the text boxes is added to the database
 
@@ -196,7 +196,7 @@ namespace MovieDatabase
 
                 //a happy message box
 
-                MessageBox.Show("Data has been Inserted  !! ");
+                return "Movie Entered";
                 Con.Close();
 
             }
