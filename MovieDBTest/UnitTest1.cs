@@ -23,9 +23,9 @@ namespace MovieDBTest
         {
             Database myDatabase = new Database();
 
-            string Actual = myDatabase.AddMovie("PG", "Cats", "2005", "Cats are good", "Cats" );
+            string Actual = myDatabase.UpdateMovie("382", "PG", "Jaws", "1975", "When a gigantic great white shark begins to menace the small island community of Amity, a police chief, a marine scientist and grizzled fisherman set out to stop it.", "Adventure, Horror, Thriller");
 
-            Assert.AreEqual("Movie Entered", Actual);
+            Assert.AreEqual("Movie Updated", Actual);
 
         }
 
