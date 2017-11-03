@@ -36,6 +36,10 @@
             this.DGVCustomers = new System.Windows.Forms.DataGridView();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.DGVMoviesRented = new System.Windows.Forms.DataGridView();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.DGVTopCustomers = new System.Windows.Forms.DataGridView();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.DGVTopMovies = new System.Windows.Forms.DataGridView();
             this.txtCustFirstName = new System.Windows.Forms.TextBox();
             this.txtCustLastName = new System.Windows.Forms.TextBox();
             this.txtCustAddress = new System.Windows.Forms.TextBox();
@@ -63,7 +67,6 @@
             this.btnUpdateCustomer = new System.Windows.Forms.Button();
             this.btnCheckOut = new System.Windows.Forms.Button();
             this.btnReturn = new System.Windows.Forms.Button();
-            this.txtMovieFee = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.rdoShowMoviesOut = new System.Windows.Forms.RadioButton();
             this.rdoAllMovies = new System.Windows.Forms.RadioButton();
@@ -72,10 +75,7 @@
             this.txtMovieID = new System.Windows.Forms.Label();
             this.txtDateTime2 = new System.Windows.Forms.Label();
             this.txtRentalID = new System.Windows.Forms.Label();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.DGVTopCustomers = new System.Windows.Forms.DataGridView();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.DGVTopMovies = new System.Windows.Forms.DataGridView();
+            this.txtMovieFee = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVMovies)).BeginInit();
@@ -173,6 +173,46 @@
             this.DGVMoviesRented.Size = new System.Drawing.Size(631, 205);
             this.DGVMoviesRented.TabIndex = 0;
             this.DGVMoviesRented.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVMoviesRented_CellContentClick);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.DGVTopCustomers);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(637, 211);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "TopCustomers";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // DGVTopCustomers
+            // 
+            this.DGVTopCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVTopCustomers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVTopCustomers.Location = new System.Drawing.Point(3, 3);
+            this.DGVTopCustomers.Name = "DGVTopCustomers";
+            this.DGVTopCustomers.Size = new System.Drawing.Size(631, 205);
+            this.DGVTopCustomers.TabIndex = 0;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.DGVTopMovies);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(637, 211);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "TopMovies";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // DGVTopMovies
+            // 
+            this.DGVTopMovies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVTopMovies.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DGVTopMovies.Location = new System.Drawing.Point(3, 3);
+            this.DGVTopMovies.Name = "DGVTopMovies";
+            this.DGVTopMovies.Size = new System.Drawing.Size(631, 205);
+            this.DGVTopMovies.TabIndex = 0;
             // 
             // txtCustFirstName
             // 
@@ -368,7 +408,7 @@
             // 
             // btnDeleteCustomer
             // 
-            this.btnDeleteCustomer.Location = new System.Drawing.Point(480, 258);
+            this.btnDeleteCustomer.Location = new System.Drawing.Point(491, 258);
             this.btnDeleteCustomer.Name = "btnDeleteCustomer";
             this.btnDeleteCustomer.Size = new System.Drawing.Size(103, 23);
             this.btnDeleteCustomer.TabIndex = 30;
@@ -378,7 +418,7 @@
             // 
             // btnUpdateCustomer
             // 
-            this.btnUpdateCustomer.Location = new System.Drawing.Point(377, 258);
+            this.btnUpdateCustomer.Location = new System.Drawing.Point(382, 259);
             this.btnUpdateCustomer.Name = "btnUpdateCustomer";
             this.btnUpdateCustomer.Size = new System.Drawing.Size(97, 23);
             this.btnUpdateCustomer.TabIndex = 31;
@@ -405,13 +445,6 @@
             this.btnReturn.Text = "Return";
             this.btnReturn.UseVisualStyleBackColor = true;
             this.btnReturn.Click += new System.EventHandler(this.btnReturn_Click);
-            // 
-            // txtMovieFee
-            // 
-            this.txtMovieFee.Location = new System.Drawing.Point(657, 376);
-            this.txtMovieFee.Name = "txtMovieFee";
-            this.txtMovieFee.Size = new System.Drawing.Size(100, 20);
-            this.txtMovieFee.TabIndex = 35;
             // 
             // label12
             // 
@@ -482,6 +515,7 @@
             this.txtDateTime2.Name = "txtDateTime2";
             this.txtDateTime2.Size = new System.Drawing.Size(0, 13);
             this.txtDateTime2.TabIndex = 42;
+            this.txtDateTime2.Visible = false;
             // 
             // txtRentalID
             // 
@@ -490,52 +524,22 @@
             this.txtRentalID.Name = "txtRentalID";
             this.txtRentalID.Size = new System.Drawing.Size(0, 13);
             this.txtRentalID.TabIndex = 43;
+            this.txtRentalID.Visible = false;
             // 
-            // tabPage4
+            // txtMovieFee
             // 
-            this.tabPage4.Controls.Add(this.DGVTopCustomers);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(637, 211);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "TopCustomers";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // DGVTopCustomers
-            // 
-            this.DGVTopCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVTopCustomers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGVTopCustomers.Location = new System.Drawing.Point(3, 3);
-            this.DGVTopCustomers.Name = "DGVTopCustomers";
-            this.DGVTopCustomers.Size = new System.Drawing.Size(631, 205);
-            this.DGVTopCustomers.TabIndex = 0;
-            // 
-            // tabPage5
-            // 
-            this.tabPage5.Controls.Add(this.DGVTopMovies);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(637, 211);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "TopMovies";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
-            // DGVTopMovies
-            // 
-            this.DGVTopMovies.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVTopMovies.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DGVTopMovies.Location = new System.Drawing.Point(3, 3);
-            this.DGVTopMovies.Name = "DGVTopMovies";
-            this.DGVTopMovies.Size = new System.Drawing.Size(631, 205);
-            this.DGVTopMovies.TabIndex = 0;
+            this.txtMovieFee.AutoSize = true;
+            this.txtMovieFee.Location = new System.Drawing.Point(668, 382);
+            this.txtMovieFee.Name = "txtMovieFee";
+            this.txtMovieFee.Size = new System.Drawing.Size(0, 13);
+            this.txtMovieFee.TabIndex = 44;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(857, 444);
+            this.Controls.Add(this.txtMovieFee);
             this.Controls.Add(this.txtRentalID);
             this.Controls.Add(this.txtDateTime2);
             this.Controls.Add(this.txtMovieID);
@@ -544,7 +548,6 @@
             this.Controls.Add(this.rdoAllMovies);
             this.Controls.Add(this.rdoShowMoviesOut);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.txtMovieFee);
             this.Controls.Add(this.btnReturn);
             this.Controls.Add(this.btnCheckOut);
             this.Controls.Add(this.btnUpdateCustomer);
@@ -628,7 +631,6 @@
         private System.Windows.Forms.Button btnUpdateCustomer;
         private System.Windows.Forms.Button btnCheckOut;
         private System.Windows.Forms.Button btnReturn;
-        private System.Windows.Forms.TextBox txtMovieFee;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.RadioButton rdoShowMoviesOut;
         private System.Windows.Forms.RadioButton rdoAllMovies;
@@ -641,6 +643,7 @@
         private System.Windows.Forms.DataGridView DGVTopCustomers;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView DGVTopMovies;
+        private System.Windows.Forms.Label txtMovieFee;
     }
 }
 

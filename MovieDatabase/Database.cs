@@ -11,7 +11,7 @@ namespace MovieDatabase
 {
     public class Database
     {
-        #region SQL Connection
+        #region Set up SQL Connection
 
         //Create Connection and Command,and an Adapter.
         private SqlConnection Connection = new SqlConnection();
@@ -24,6 +24,7 @@ namespace MovieDatabase
 
         #endregion
 
+        #region database information
         public Database()
         {
             //change the connection string to run from your own music db
@@ -32,6 +33,9 @@ namespace MovieDatabase
             Connection.ConnectionString = connectionString;
             Command.Connection = Connection;
         }
+        #endregion
+
+
 
         #region All movies
 
@@ -52,8 +56,6 @@ namespace MovieDatabase
         }
 
         #endregion
-
-
 
         #region Select all movies out
         public DataTable FillDGVMoviesWithMoviesOut()
@@ -94,7 +96,6 @@ namespace MovieDatabase
 
         #endregion
 
-
         #region rentals tab
 
         public DataTable FillDGVRentalsWithRentals()
@@ -116,6 +117,8 @@ namespace MovieDatabase
 
         #endregion
 
+        #region fill form with database information
+
         public DataTable FillDGVTopCustomersWithTopCustomers()
         {
             //create a datatable as we only have one table, the Owner
@@ -133,6 +136,9 @@ namespace MovieDatabase
             return dt; //pass the datatable data to the DataGridView
         }
 
+        #endregion
+
+        #region top movies
         public DataTable FillDGVTopMoviesWithTopMovies()
         {
             //create a datatable as we only have one table, the Owner
@@ -149,23 +155,18 @@ namespace MovieDatabase
             }
             return dt; //pass the datatable data to the DataGridView
         }
+        #endregion
 
         #region fill datagrid view
-
+        //fill form with information from database
         public DataTable FillDGMoviesWithMoviesClick(string Moviesvalue)
         {
             string SQL = "select Date from CustomerMovieRentals where MovieIDFK = '" + Moviesvalue + "' ";
-
             da = new SqlDataAdapter(SQL, Connection);
-            //connect in to the DB and get the SQL
             DataTable dt = new DataTable();
-            //create a datatable as we only have one table, the Owner
             Connection.Open();
-            //open a connection to the DB
             da.Fill(dt);
-            //fill the datatable from the SQL
             Connection.Close();
-            //close the connection
             return dt;
         }
 
@@ -173,12 +174,18 @@ namespace MovieDatabase
 
 
         #region add customer
-
-        public void AddCustomer(string FirstName, string LastName, string Address, string Phone)
+        //Add customer to database when data entered in form
+        public string AddCustomer(string FirstName, string LastName, string Address, string Phone)
         {
-            // this puts the parameters into the code so that the data in the text boxes is added to the database
-            string NewEntry =
+
+                // this puts the parameters into the code so that the data in the text boxes is added to the database
+                string NewEntry =
                 "INSERT INTO Customer (FirstName, LastName, Address, Phone) VALUES ( @FirstName, @LastName, @Address, @Phone)";
+
+            try
+            {
+                
+            
 
             
                 var newdata = new SqlCommand(NewEntry, Connection);
@@ -192,14 +199,19 @@ namespace MovieDatabase
 
             Connection.Open(); //open a connection to the database
 
-            //its a NONQuery as it doesn't return any data its only going up to the server
-
             newdata.ExecuteNonQuery(); //Run the Query
 
             //a happy message box
 
-            MessageBox.Show("Data has been Inserted  !! ");
+            return "Data has been Inserted  !! ";
             Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                // need to get it to close a second time as it jumps the first connection.close when ExecuteNonQuery fails.
+                Connection.Close();
+                return " has Failed with " + ex;
+            }
         }
 
 
@@ -209,7 +221,7 @@ namespace MovieDatabase
 
 
         #region Add Movie
-
+        //Add movie to database when data entered into form.
         public string AddMovie(string rating, string title, string year, string plot, string genre)
         {
             // this puts the parameters into the code so that the data in the text boxes is added to the database
@@ -242,9 +254,11 @@ namespace MovieDatabase
         #endregion
 
         #region Check Out movie
-
+        //check out movie when customer and movie information on form
         public void CheckOut(string MovieID, string CustID, DateTime Date)
         {
+
+
             string query =
                "INSERT INTO RentedMovies (MovieIDFK, CustIDFK, DateRented) VALUES ( @MovieIDFK, @CustIDFK, @DateRented)";
 
@@ -276,7 +290,7 @@ namespace MovieDatabase
         #endregion
 
         #region Update Movie
-
+        //Updates movie information from form
         public string UpdateMovie(string MovieID, string MovieRating, string Title, string Year, string Plot,
             string Genre)
         {
@@ -293,7 +307,7 @@ namespace MovieDatabase
             myCommand.Parameters.AddWithValue("@Genre", Genre);
 
             Connection.Open();
-            //it's NonQuery as data is only going up
+           
 
             myCommand.ExecuteNonQuery();
             
@@ -304,7 +318,7 @@ namespace MovieDatabase
         #endregion
 
         #region Fee Calculation
-
+        //Calculate fee based on age of movie
         public int FeeCalculation(int year, int thisYear)
         {
             int difference = (thisYear - year);
@@ -323,7 +337,7 @@ namespace MovieDatabase
 
 
         #region Delete Customer
-
+        //Delete Customer from database
         public void DeleteCustomer(string CustomerID)
         {
             
@@ -339,7 +353,7 @@ namespace MovieDatabase
         #endregion
 
         #region Update Customer
-
+        //Update customer information from form
         public void UpdateCustomer(string CustID, string firstName, string lastName, string address, string phone)
         {
             //this updates existing data in the database where the ID of the data equals the ID in the text box
@@ -385,23 +399,26 @@ namespace MovieDatabase
 
 
         #region delete movie
-
+        //delete movie from Database
         public void DeleteMovie(string MovieID)
         {
-
-            var myCommand = new SqlCommand("Delete Movies where MovieID = @MovieID");
+            
+            
+                var myCommand = new SqlCommand("Delete Movies where MovieID = @MovieID");
 
             myCommand.Connection = Connection;
             myCommand.Parameters.AddWithValue("@MovieID", MovieID);
             Connection.Open();
             myCommand.ExecuteNonQuery();
             Connection.Close();
+            }
+            
         }
 
         #endregion
 
     }
-}
+
 
 
     

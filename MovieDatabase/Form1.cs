@@ -103,6 +103,8 @@ namespace MovieDatabase
 
         #endregion
 
+        #region Display Top Customers
+
         private void DisplayDataGridViewTopCustomers()
         {
             //clear out the old data
@@ -119,7 +121,9 @@ namespace MovieDatabase
             }
 
         }
+        #endregion
 
+        #region display top movies
         private void DisplayDataGridViewTopMovies()
         {
             //clear out the old data
@@ -136,9 +140,11 @@ namespace MovieDatabase
             }
 
         }
-
+        #endregion
 
         #region Add customer information to form
+
+        
         private void DGVCustomers_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -153,7 +159,7 @@ namespace MovieDatabase
            
             if (e.RowIndex >= 0)
             {
-                //Fill the next CD DGV with the owner ID
+                
 
                 txtCustID.Text = CustID.ToString();
 
@@ -163,6 +169,7 @@ namespace MovieDatabase
 
         #endregion
 
+        #region add movie information from DGV
         private void DGVMovies_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
@@ -173,7 +180,7 @@ namespace MovieDatabase
                 //show the data in the DGV in the text boxes
                 string newvalue = DGVMovies.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString();
                 //show the output on the header
-                this.Text = "Row : " + e.RowIndex.ToString() + "  Col : " + e.ColumnIndex.ToString() + " Value = " + newvalue;
+                //this.Text = "Row : " + e.RowIndex.ToString() + "  Col : " + e.ColumnIndex.ToString() + " Value = " + newvalue;
                 //pass data to the text boxes
                 txtMovieID.Text = DGVMovies.Rows[e.RowIndex].Cells[0].Value.ToString();
                 txtMovieRating.Text = DGVMovies.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -188,28 +195,46 @@ namespace MovieDatabase
             catch
             {
             }
-            //int thisYear = Convert.ToInt16(txtDateTime2.Text);
-            //int Year = Convert.ToInt16(txtMovieYear.Text);
+            int thisYear = Convert.ToInt16(txtDateTime2.Text);
+            int Year = Convert.ToInt16(txtMovieYear.Text);
 
-            //int fee = myDatabase.FeeCalculation(Year, thisYear);
+            int fee = myDatabase.FeeCalculation(Year, thisYear);
 
-            //txtMovieFee.Text = "$" + fee.ToString() + ".00";
+            txtMovieFee.Text = "$" + fee.ToString() + ".00";
 
         }
+        #endregion
 
+        #region add Movie
+
+        //add Movie to database from form
         private void btnAddMovie_Click(object sender, EventArgs e)
         {
 
-            string cat = myDatabase.AddMovie(txtMovieRating.Text, txtMovieTitle.Text, txtMovieYear.Text, txtMoviePlot.Text,
-            txtMovieGenre.Text);
+            if (txtMovieTitle.Text != string.Empty && txtMovieYear.Text != string.Empty &&
+                txtMovieGenre.Text != string.Empty && txtMovieRating.Text != string.Empty &&
+                txtMoviePlot.Text != string.Empty)
+            {
 
-            MessageBox.Show(cat);
+                string cat = myDatabase.AddMovie(txtMovieRating.Text, txtMovieTitle.Text, txtMovieYear.Text,
+                    txtMoviePlot.Text,
+                    txtMovieGenre.Text);
 
-            //Run the LoadDatabase method we made earler to see the new data.
+                MessageBox.Show(cat);
+            }
+            else
+            {
+                MessageBox.Show("Please enter all fields");
+            }
+
+            
 
             DisplayDataGridViewMovies();
         }
+        #endregion
 
+
+        #region update movie
         private void btnUpdateMovie_Click(object sender, EventArgs e)
         {
 
@@ -221,7 +246,9 @@ namespace MovieDatabase
 
             DisplayDataGridViewMovies();
         }
+        #endregion
 
+        #region delete movie
         private void btnDeleteMovie_Click(object sender, EventArgs e)
         {
             myDatabase.DeleteMovie(txtMovieID.Text);
@@ -229,14 +256,33 @@ namespace MovieDatabase
             
             DisplayDataGridViewMovies();
         }
+        #endregion
 
+
+
+        #region add customer
+        //Add Customer based from form information
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            myDatabase.AddCustomer(txtCustFirstName.Text, txtCustLastName.Text, txtCustAddress.Text, txtCustPhone.Text);
 
-            DisplayDataGridViewCustomers();
+            if (txtCustFirstName.Text != string.Empty && txtCustLastName.Text != string.Empty &&
+                txtCustAddress.Text != string.Empty && txtCustPhone.Text != string.Empty)
+            {
+                string dog = myDatabase.AddCustomer(txtCustFirstName.Text, txtCustLastName.Text, txtCustAddress.Text,
+                    txtCustPhone.Text);
+
+                MessageBox.Show(dog);
+            }
+            else
+            {
+                MessageBox.Show("Please enter all fields");
+            }
+            
+
         }
+        #endregion
 
+        #region Delete Customer
         private void btnDeleteCustomer_Click(object sender, EventArgs e)
         {
             myDatabase.DeleteCustomer(txtCustID.Text);
@@ -245,7 +291,9 @@ namespace MovieDatabase
            
             DisplayDataGridViewCustomers();
         }
+        #endregion
 
+        #region Update Customer
         private void btnUpdateCustomer_Click(object sender, EventArgs e)
         {
             myDatabase.UpdateCustomer(txtCustID.Text, txtCustFirstName.Text, txtCustLastName.Text, txtCustAddress.Text, txtCustPhone.Text);
@@ -253,16 +301,31 @@ namespace MovieDatabase
             
             DisplayDataGridViewCustomers();
         }
+        #endregion
 
+
+        #region Check Out
         private void btnCheckOut_Click(object sender, EventArgs e)
         {
-            DateTime Date = Convert.ToDateTime(txtDateTime.Text);
-            myDatabase.CheckOut(txtMovieID.Text, txtCustID.Text, Date);
-            
+            if (txtMovieID.Text != string.Empty && txtCustID.Text != string.Empty )
+            {
 
-           DisplayDataGridViewRentals();
+                DateTime Date = Convert.ToDateTime(txtDateTime.Text);
+                myDatabase.CheckOut(txtMovieID.Text, txtCustID.Text, Date);
+
+
+                DisplayDataGridViewRentals();
+            }
+            else
+            {
+                MessageBox.Show("Please select and movie and a customer");
+
+            }
+
         }
+        #endregion
 
+        #region Select rented movie
         private void DGVMoviesRented_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             try
@@ -280,16 +343,35 @@ namespace MovieDatabase
             }
 
         }
+        #endregion
 
+
+        #region Return movie
+        //return selected movie
         private void btnReturn_Click(object sender, EventArgs e)
+
+
         {
-            DateTime Date = Convert.ToDateTime(txtDateTime.Text);
+            if (txtRentalID.Text != string.Empty)
+            {
+
+            
+
+                DateTime Date = Convert.ToDateTime(txtDateTime.Text);
             myDatabase.returnMovie(txtRentalID.Text, Date);
             MessageBox.Show("Movie Returned");
 
             DisplayDataGridViewRentals();
+            }
+            else
+            {
+                MessageBox.Show("Please select a movie rental from the rental tab");
+            }
         }
+        #endregion
 
+
+        #region show movies out
         private void rdoShowMoviesOut_CheckedChanged(object sender, EventArgs e)
         {
             DGVMovies.DataSource = null;
@@ -304,11 +386,15 @@ namespace MovieDatabase
                 MessageBox.Show(ex.Message);
             }
         }
-
+        #endregion
+        #region Movies checked out
         private void rdoAllMovies_CheckedChanged(object sender, EventArgs e)
         {
             DisplayDataGridViewMovies();
         }
+
+#endregion
+
     }
     }
 
